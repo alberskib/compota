@@ -189,13 +189,13 @@ with ServerErrorResponse {
     }
 
     case GET(Path("/main.css")) => {
-      val main = io.Source.fromInputStream(getClass.getResourceAsStream("/console/main.css")).mkString
+      val main = scala.io.Source.fromInputStream(getClass.getResourceAsStream("/console/main.css")).mkString
       CssContent ~> ResponseString(main)
     }
   }
 
   def main(): String = {
-    io.Source.fromInputStream(getClass.getResourceAsStream("/console/main.html")).mkString
+    scala.io.Source.fromInputStream(getClass.getResourceAsStream("/console/main.html")).mkString
   }
 
 }
@@ -222,7 +222,7 @@ class Server(nisperon: Nisperon) {
   def start() {
 
     import scala.sys.process._
-    val keyConf = io.Source.fromInputStream(getClass.getResourceAsStream("/console/keytoolConf.txt")).mkString.replace("$password$", password)
+    val keyConf = scala.io.Source.fromInputStream(getClass.getResourceAsStream("/console/keytoolConf.txt")).mkString.replace("$password$", password)
    // println(keyConf)
     val is = new ByteArrayInputStream(keyConf.getBytes("UTF-8"))
     try {
